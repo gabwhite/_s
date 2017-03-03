@@ -14,3 +14,11 @@
 	clear: both;
 	@include center-block;
 }
+
+.pull-left {
+	float: left;
+}
+
+.pull-right {
+	float: right;
+}
