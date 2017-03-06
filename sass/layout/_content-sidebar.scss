@@ -8,6 +8,11 @@
 	margin: 0 $size__site-sidebar 0 0;
 }
 
+// Full width layout
+.site-full {
+	width: $size__site-main;
+}
+
 .site-content .widget-area {
 	float: right;
 	overflow: hidden;

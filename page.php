@@ -13,7 +13,13 @@
  */
 
 get_header(); ?>
+	<header class="entry-header">
+		<div class="wrapper">
+			<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
+		</div>
+	</header><!-- .entry-header -->
 
+	
 	<div id="primary" class="content-area">
 		<main id="main" class="site-main" role="main">
 
