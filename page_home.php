@@ -8,6 +8,8 @@
  */
 
 get_header(); ?>
+
+	<!-- this is a header -->
 	<header class="entry-header" style="background: url(<?php the_post_thumbnail_url(); ?> ); background-size: cover; background-position: center;">
 		<div class="wrapper">
 			<?php the_title( '<h1 class="entry-title">', '</h1>' ); ?>
