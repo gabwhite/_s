@@ -45,6 +45,7 @@ function _s_setup() {
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus( array(
 		'menu-1' => esc_html__( 'Primary', '_s' ),
+		'menu-2' => esc_html__( 'Utility', '_s' ),
 	) );
 
 	/*
@@ -106,7 +107,7 @@ add_action( 'widgets_init', '_s_widgets_init' );
  */
 
 function wpb_add_google_fonts() {
-		wp_enqueue_style( 'wpb-google-fonts', 'http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,700,300', false );
+		wp_enqueue_style( 'wpb-google-fonts', 'https://fonts.googleapis.com/css?family=Raleway:400,400i,500,700,700i', false );
 	}
 
 	add_action( 'wp_enqueue_scripts', 'wpb_add_google_fonts' );
@@ -119,7 +120,7 @@ function _s_scripts() {
 
 	wp_enqueue_script( '_s-skip-link-focus-fix', get_template_directory_uri() . '/js/skip-link-focus-fix.js', array(), '20151215', true );
 
-	wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.js', array(), '01', true );
+	wp_enqueue_script( 'scripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '01', true );
 	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
@@ -157,3 +158,74 @@ function my_login_stylesheet() {
     wp_enqueue_style( 'custom-login', get_template_directory_uri() . '/sass/style-login.css' );
 }
 add_action( 'login_enqueue_scripts', 'my_login_stylesheet' );
+
+
+// Get the Sub Menu
+
+// add hook
+add_filter( 'wp_nav_menu_objects', 'my_wp_nav_menu_objects_sub_menu', 10, 2 );
+
+// filter_hook function to react on sub_menu flag
+function my_wp_nav_menu_objects_sub_menu( $sorted_menu_items, $args ) {
+  if ( isset( $args->sub_menu ) ) {
+    $root_id = 0;
+    
+    // find the current menu item
+    foreach ( $sorted_menu_items as $menu_item ) {
+      if ( $menu_item->current ) {
+        // set the root id based on whether the current menu item has a parent or not
+        $root_id = ( $menu_item->menu_item_parent ) ? $menu_item->menu_item_parent : $menu_item->ID;
+        break;
+      }
+    }
+    
+    // find the top level parent
+    if ( ! isset( $args->direct_parent ) ) {
+      $prev_root_id = $root_id;
+      while ( $prev_root_id != 0 ) {
+        foreach ( $sorted_menu_items as $menu_item ) {
+          if ( $menu_item->ID == $prev_root_id ) {
+            $prev_root_id = $menu_item->menu_item_parent;
+            // don't set the root_id to 0 if we've reached the top of the menu
+            if ( $prev_root_id != 0 ) $root_id = $menu_item->menu_item_parent;
+            break;
+          } 
+        }
+      }
+    }
+    $menu_item_parents = array();
+    foreach ( $sorted_menu_items as $key => $item ) {
+      // init menu_item_parents
+      if ( $item->ID == $root_id ) $menu_item_parents[] = $item->ID;
+      if ( in_array( $item->menu_item_parent, $menu_item_parents ) ) {
+        // part of sub-tree: keep!
+        $menu_item_parents[] = $item->ID;
+      } else if ( ! ( isset( $args->show_parent ) && in_array( $item->ID, $menu_item_parents ) ) ) {
+        // not part of sub-tree: away with it!
+        unset( $sorted_menu_items[$key] );
+      }
+    }
+    
+    return $sorted_menu_items;
+  } else {
+    return $sorted_menu_items;
+  }
+}
+
+// Custom Field Excerpt
+
+function custom_field_excerpt_longer() {
+	global $post;
+	$text = get_sub_field('member_bio');
+	if ( '' != $text ) {
+		$text = strip_shortcodes( $text );
+		$text = apply_filters('the_content', $text);
+		$text = str_replace(']]>', ']]>', $text);
+		$excerpt_length = 35; 
+		$excerpt_more = apply_filters('excerpt_more', ' ' . '...');
+		$text = wp_trim_words( $text, $excerpt_length, $excerpt_more );
+	}
+	return apply_filters('the_excerpt', $text);
+}
+
+ 

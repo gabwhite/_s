@@ -20,8 +20,20 @@ get_header(); ?>
 	</header><!-- .entry-header -->
 
 	
-	<div id="primary" class="content-area">
-		<main id="main" class="site-main" role="main">
+	<div id="primary" class="wrapper">
+		<aside class="col-1-4 side-menu">
+			<nav id="site-navigation" class="main-navigation" role="navigation">
+
+				<?php
+				wp_nav_menu( array(
+				  'menu'          => 'Main Menu',
+				  'sub_menu'      => true,
+				  'direct_parent' => true
+				) ); ?>
+
+			</nav><!-- #site-navigation -->
+		</aside>
+		<main id="main" class="col-3-4" role="main">
 
 			<?php
 			while ( have_posts() ) : the_post();
@@ -40,5 +52,4 @@ get_header(); ?>
 	</div><!-- #primary -->
 
 <?php
-get_sidebar();
 get_footer();
