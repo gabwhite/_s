@@ -2,21 +2,19 @@ button,
 input[type="button"],
 input[type="reset"],
 input[type="submit"] {
-	border: 1px solid;
-	border-color: $color__border-button;
-	border-radius: 3px;
+	border: 0;
 	background: $color__background-button;
-	color: rgba(0, 0, 0, .8);
-	@include font-size(0.75);
+	color: white;
+	@include font-size(1);
 	line-height: 1;
-	padding: .6em 1em .4em;
+	padding: 12px 15px 8px;
 
 	&:hover {
-		border-color: $color__border-button-hover;
+		background: $color__link;
 	}
 
 	&:active,
 	&:focus {
-		border-color: $color__border-button-focus;
+		background: $color__link-visited;
 	}
 }

@@ -14,11 +14,18 @@
 	</div><!-- #content -->
 
 	<footer id="colophon" class="site-footer" role="contentinfo">
-		<div class="site-info wrapper">
-			<a href="<?php echo esc_url( __( 'https://wordpress.org/', '_s' ) ); ?>"><?php printf( esc_html__( 'Proudly powered by %s', '_s' ), 'WordPress' ); ?></a>
-			<span class="sep"> | </span>
-			<?php printf( esc_html__( 'Theme: %1$s by %2$s.', '_s' ), '_s', '<a href="https://automattic.com/" rel="designer">Automattic</a>' ); ?>
-		</div><!-- .site-info -->
+		<div class="wrapper">
+			<div class="pull-left">
+				<nav id="site-navigation" class="main-navigation" role="navigation">
+					<?php wp_nav_menu( array( 'theme_location' => 'menu-1', 'menu_id' => 'primary-menu' ) ); ?>
+				</nav><!-- #site-navigation -->
+				
+				<nav class="utility-nav"><?php wp_nav_menu(array('theme_location'=>'menu-2', 'menu_id'=>'utility-menu')); ?></nav>
+			</div>
+			<div class="pull-right">
+				<p class="copyright">Copyright <?php echo get_bloginfo(); ?> &copy; <?php echo date('Y'); ?></p>
+			</div>
+		</div>
 	</footer><!-- #colophon -->
 </div><!-- #page -->
 

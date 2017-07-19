@@ -1,0 +1,52 @@
+
+footer {
+	background: $color__background-hr;
+	padding: 30px 0;
+	margin-top: 5%;
+
+	.main-navigation {
+		display: block;
+		ul {
+			li {
+				float: none;
+				display: inline-block;
+				width: auto;
+
+				ul {
+					display: none;
+				}
+			}
+
+			a {
+				color: white;
+				padding: 0 25px 15px 0;
+			}
+		}
+	}
+
+	.utility-nav {
+		display: block;
+
+		ul {
+			margin: 0;
+			padding: 0;
+
+			li {
+				width: auto;
+				display: inline-block;
+
+				a {
+					color: $color__background-button;
+					padding: 15px 25px 15px 0;
+				}
+			}
+		}
+	}
+}
+
+p.copyright {
+	color: white;
+	margin: 0;
+	max-width: 300px;
+	text-align: right;
+}

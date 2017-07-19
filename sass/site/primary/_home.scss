@@ -1,0 +1,41 @@
+header.home-header {
+	padding: 10% 0;
+	margin: 0;
+	background-attachment: fixed !important;
+}
+
+.intro-text {
+	margin-bottom: 5%;
+}
+
+/*----------  Mission Statement  ----------*/
+
+.mission-statement {
+	background: $color__link;
+	color: white;
+
+	h1 {
+		color: white;
+	}
+}
+
+.who-we-are {
+	padding: 5% 0;
+}
+
+.who-we-are-img {
+	margin-bottom: -20px;
+}
+
+/*----------  Events Area  ----------*/
+
+.event-item {
+	background: white;
+	padding: 30px;
+	margin: 30px 0;
+
+	h3, a {
+		text-align: center;
+		display: block;
+	}
+}

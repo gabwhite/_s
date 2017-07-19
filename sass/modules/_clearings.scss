@@ -20,6 +20,7 @@
 .comment-content:after,
 .site-header:after,
 .site-content:after,
-.site-footer:after {
+.site-footer:after, 
+.wrapper:after {
 	@include clearfix-after;
 }

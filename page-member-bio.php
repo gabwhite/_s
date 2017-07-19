@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: About Page
+ * Template Name: Member Bios Page
  *
  * @link https://codex.wordpress.org/Template_Hierarchy
  *
@@ -31,9 +31,24 @@ get_header(); ?>
 		<?php if (have_posts()) : while (have_posts()) : the_post(); ?>
 		
 		<main id="main" class="col-3-4" role="main">
-			<?php the_content(); ?>
+			<div class="board-members">
+				
+				<?php while(has_sub_field('board_members_repeater')): ?>
+					<div class="each-member clear">
+						<div class="col-1-4">
+							<a href="<?php the_sub_field('member_photo'); ?> "><img class="member-photo" src="<?php the_sub_field('member_photo'); ?> " alt="<?php the_field('member_name'); ?> "></a>
+						</div>
 
-			<a href="<?php the_field('button_link'); ?>"><button class="btn"><?php the_field('button_text'); ?></button></a>
+						<div class="col-3-4">
+							<h3><?php the_sub_field('member_name'); ?></h3>
+							<p><?php the_sub_field('member_bio', 30); ?></p>
+							<p><?php echo custom_field_excerpt_longer(); ?></p>
+						</div>
+					</div>
+				<?php endwhile; ?>	
+
+			</div>
+
 		</main><!-- #main -->
 		
 		<?php endwhile; endif; ?>
